@@ -29,6 +29,6 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ecs-task-def.json    # <-- you’ll need this file in repo
-          service: electronics-service          # <-- change to your ECS service
-          cluster: electronics-cluster          # <-- change to your ECS cluster
+          service: myflaskapp-service-ihtg340m          # <-- change to your ECS service
+          cluster: electronic-store-290221          # <-- change to your ECS cluster
           wait-for-service-stability: true
