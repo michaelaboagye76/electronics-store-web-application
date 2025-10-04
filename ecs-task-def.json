@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "flask-container-1",
-      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:e0dbc818702cd985f144cdc9848bbcb4525254b7:latest", 
+      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:latest",
       "portMappings": [
         {
           "containerPort": 5000,
