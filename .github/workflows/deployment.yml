@@ -32,12 +32,12 @@ jobs:
         with:
           task-definition: ecs-task-def.json
           container-name: flask-container-1   # must match container name in task def
-          image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:e0dbc818702cd985f144cdc9848bbcb4525254b7:${{ github.sha }}
+          image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:${{ github.sha }}
 
       # Step 5: Deploy ECS service with new task definition
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: app-service-1         # replace with your ECS service name
-          cluster: app-cluster-1             # replace with your ECS cluster name
+          service: app-service-1       # replace with your ECS service name
+          cluster: app-cluster-1       # replace with your ECS cluster name
