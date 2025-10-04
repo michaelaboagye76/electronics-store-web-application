@@ -1,15 +1,13 @@
-name: CD - Deploy to Amazon ECS
+name: Deploy to ECS
 
 on:
-  workflow_run:
-    workflows: ["CI - Build & Push Docker Image"]
-    types:
-      - completed
+  push:
+    branches:
+      - main
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -19,16 +17,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1   # <-- change to your region
+          aws-region: us-east-1
 
-      - name: Log in to Amazon ECR
-        id: login-ecr
+      - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Deploy to ECS
+      - name: Build, tag, and push image
+        run: |
+          IMAGE_URI=957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest
+          docker build -t $IMAGE_URI .
+          docker push $IMAGE_URI
+
+      - name: Render Amazon ECS task definition
+        id: task-def
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ecs-task-def.json
+          container-name: my-flask-app
+          image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest
+
+      - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
-          task-definition: ecs-task-def.json    # <-- you’ll need this file in repo
-          service: myflaskapp-service-ihtg340m          # <-- change to your ECS service
-          cluster: electronic-store-290221          # <-- change to your ECS cluster
-          wait-for-service-stability: true
+          task-definition: ${{ steps.task-def.outputs.task-definition }}
+          service: my-app-service
+          cluster: my-cluster

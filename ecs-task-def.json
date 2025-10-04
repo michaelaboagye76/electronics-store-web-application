@@ -9,7 +9,7 @@
   "containerDefinitions": [
     {
       "name": "flask-container",
-      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app:latest",
+      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest", 
       "portMappings": [
         {
           "containerPort": 5000,
@@ -23,7 +23,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/flask-app",
+          "awslogs-group": "/ecs/my-flask-app",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
