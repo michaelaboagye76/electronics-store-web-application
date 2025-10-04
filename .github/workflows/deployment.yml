@@ -21,7 +21,7 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
-      # Step 3: Login to Amazon ECR (so ECS agent can pull)
+      # Step 3: Login to Amazon ECR
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
@@ -31,7 +31,7 @@ jobs:
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-def.json
-          container-name: flask-container-1   # must match container name in task def
+          container-name: flask-container-1   # must match container name in your ECS task def
           image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:${{ github.sha }}
 
       # Step 5: Deploy ECS service with new task definition
@@ -39,5 +39,5 @@ jobs:
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: app-service-1       # replace with your ECS service name
-          cluster: app-cluster-1       # replace with your ECS cluster name
+          service: app-service-1         # replace with your ECS service name
+          cluster: app-cluster-1         # replace with your ECS cluster name
