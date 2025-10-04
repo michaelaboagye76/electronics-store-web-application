@@ -9,9 +9,11 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
+      # Step 1: Checkout code (needed for task-def.json)
       - name: Checkout code
         uses: actions/checkout@v3
 
+      # Step 2: Configure AWS credentials
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
@@ -19,26 +21,23 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
 
+      # Step 3: Login to Amazon ECR (so ECS agent can pull)
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v2
 
-      - name: Build, tag, and push image
-        run: |
-          IMAGE_URI=957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest
-          docker build -t $IMAGE_URI .
-          docker push $IMAGE_URI
-
+      # Step 4: Render ECS task definition with new image
       - name: Render Amazon ECS task definition
         id: task-def
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: ecs-task-def.json
-          container-name: my-flask-app
-          image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest
+          container-name: flask-container-1   # must match container name in task def
+          image: 957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:e0dbc818702cd985f144cdc9848bbcb4525254b7:${{ github.sha }}
 
+      # Step 5: Deploy ECS service with new task definition
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
           task-definition: ${{ steps.task-def.outputs.task-definition }}
-          service: my-app-service
-          cluster: my-cluster
+          service: app-service-1         # replace with your ECS service name
+          cluster: app-cluster-1             # replace with your ECS cluster name
