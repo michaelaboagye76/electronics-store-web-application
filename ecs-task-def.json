@@ -1,5 +1,5 @@
 {
-  "family": "flask-app",
+  "family": "ecs-task-def",
   "networkMode": "awsvpc",
   "requiresCompatibilities": ["FARGATE"],
   "cpu": "256",
@@ -8,8 +8,8 @@
   "taskRoleArn": "arn:aws:iam::957839002008:role/ecsAppRole",
   "containerDefinitions": [
     {
-      "name": "flask-container",
-      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/my-flask-app:latest", 
+      "name": "flask-container-1",
+      "image": "957839002008.dkr.ecr.us-east-1.amazonaws.com/flask-app-repo:e0dbc818702cd985f144cdc9848bbcb4525254b7:latest", 
       "portMappings": [
         {
           "containerPort": 5000,
@@ -23,7 +23,7 @@
       "logConfiguration": {
         "logDriver": "awslogs",
         "options": {
-          "awslogs-group": "/ecs/my-flask-app",
+          "awslogs-group": "/ecs/ecs-task-def",
           "awslogs-region": "us-east-1",
           "awslogs-stream-prefix": "ecs"
         }
