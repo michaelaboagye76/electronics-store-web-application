@@ -4,7 +4,7 @@ env:
   variables:
     AWS_REGION: "us-east-1"
     AWS_ACCOUNT_ID: "957839002008"
-    IMAGE_REPO_NAME: "flask-ecs-app"
+    IMAGE_REPO_NAME: "flask-ecs-repo"
     ECS_CLUSTER: "flask-ecs-cluster"
     ECS_SERVICE: "flask-service"
 
