@@ -10,7 +10,7 @@ env:
   ECR_REPOSITORY: flask-ecs-repo
   ECS_CLUSTER: flask-ecs-cluster
   ECS_SERVICE: flask-service
-  TASK_FAMILY: flask-ngnix-task
+  TASK_FAMILY: flask-app
   AWS_ACCOUNT_ID: 957839002008
 
 jobs:
