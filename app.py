@@ -4,10 +4,10 @@ app = Flask(__name__)
 
 # Sample product data
 products = [
-    {"name": "Laptop", "price": "$800", "image": "laptop.jpeg"},
-    {"name": "Microwave", "price": "$150", "image": "microwave.png"},
-    {"name": "Smart TV", "price": "$500", "image": "tv.jpeg"},
-    {"name": "Refrigerator", "price": "$700", "image": "fridge.png"}
+    {"name": "Laptop", "price": "$800", "image": "images/laptop.jpeg"},
+    {"name": "Microwave", "price": "$150", "image": "images/microwave.png"},
+    {"name": "Smart TV", "price": "$500", "image": "images/tv.jpeg"},
+    {"name": "Refrigerator", "price": "$700", "image": "images/fridge.png"}
 ]
 
 @app.route('/')

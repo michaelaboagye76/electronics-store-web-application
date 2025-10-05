@@ -2,43 +2,59 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Contact Us</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f5f7fa;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #007BFF;
+      color: white;
+      text-align: center;
+      padding: 1rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: #f0f0f0;
+      margin-top: 2rem;
+    }
+
+    a {
+      color: #007BFF;
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Contact Us</h1>
-    <nav>
-      <a href="index.html">Home</a> |
-      <a href="contact.html">Contact</a>
-    </nav>
+    <h1>Contact Information</h1>
   </header>
 
   <main>
-    <section class="contact-container">
+    <div class="contact-container">
       <div class="contact-card">
-        <h2>Store Information</h2>
-        <p><strong>Email:</strong> info@electronicsstore.com</p>
-        <p><strong>Phone:</strong> +1 234 567 890</p>
-        <p><strong>Address:</strong> 123 Electronics Street, Tech City</p>
+        <h2>Email Us</h2>
+        <p>info@example.com</p>
       </div>
-
       <div class="contact-card">
-        <h2>Find Us Here</h2>
-        <iframe 
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.086992230677!2d-122.41941568468144!3d37.774929779759746!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8085809c5c1f9f5f%3A0x8c8c0b2c5d1c9f1f!2s123%20Electronics%20Street!5e0!3m2!1sen!2sus!4v1600000000000!5m2!1sen!2sus" 
-          width="100%" 
-          height="250" 
-          style="border:0;" 
-          allowfullscreen="" 
-          loading="lazy"></iframe>
+        <h2>Call Us</h2>
+        <p>+1 (234) 567-890</p>
       </div>
-    </section>
+    </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 Electronics Store</p>
+    <a href="/">← Back to Home</a>
   </footer>
 </body>
 </html>
