@@ -5,25 +5,29 @@ env:
     AWS_REGION: "us-east-1"
     AWS_ACCOUNT_ID: "957839002008"
     IMAGE_REPO_NAME: "flask-ecs-app"
+    ECS_CLUSTER: "flask-ecs-cluster"
+    ECS_SERVICE: "flask-service"
 
 phases:
   pre_build:
     commands:
       - echo Logging in to Amazon ECR...
       - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      - IMAGE_TAG=${CODEBUILD_RESOLVED_SOURCE_VERSION}
+      - echo Build will use image tag: $IMAGE_TAG
 
   build:
     commands:
       - echo Building Docker image...
-      - docker build -t $IMAGE_REPO_NAME -f Dockerfile .
-      - docker tag $IMAGE_REPO_NAME:latest $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
+      - docker build -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
 
   post_build:
     commands:
-      - echo Pushing image to Amazon ECR...
-      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:latest
-      - echo Creating imagedefinitions.json file...
-      - printf '[{"name":"flask-container","imageUri":"%s.dkr.ecr.%s.amazonaws.com/%s:latest"}]' $AWS_ACCOUNT_ID $AWS_REGION $IMAGE_REPO_NAME > imagedefinitions.json
+      - echo Pushing Docker image to Amazon ECR...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      - echo Writing imagedefinitions.json for ECS deployment...
+      - printf '[{"name":"flask-container","imageUri":"%s.dkr.ecr.%s.amazonaws.com/%s:%s"}]' $AWS_ACCOUNT_ID $AWS_REGION $IMAGE_REPO_NAME $IMAGE_TAG > imagedefinitions.json
 
 artifacts:
   files:
