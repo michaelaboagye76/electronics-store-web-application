@@ -4,19 +4,19 @@ app = Flask(__name__)
 
 # Sample product data
 products = [
-    {"name": "Laptop", "price": "$800", "image": "laptop.jpg"},
-    {"name": "Microwave", "price": "$150", "image": "microwave.jpg"},
-    {"name": "Smart TV", "price": "$500", "image": "tv.jpg"},
-    {"name": "Refrigerator", "price": "$700", "image": "fridge.jpg"}
+    {"name": "Laptop", "price": "$800", "image": "laptop.jpeg"},
+    {"name": "Microwave", "price": "$150", "image": "microwave.png"},
+    {"name": "Smart TV", "price": "$500", "image": "tv.jpeg"},
+    {"name": "Refrigerator", "price": "$700", "image": "fridge.png"}
 ]
 
 @app.route('/')
 def home():
-    return render_template("html/index.html", products=products)
+    return render_template("index.html", products=products)
 
 @app.route('/contact')
 def contact():
-    return render_template("html/contact.html")
+    return render_template("contact.html")
 
 if __name__ == '__main__':
     # Only for local testing
