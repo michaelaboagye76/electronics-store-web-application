@@ -12,11 +12,11 @@ products = [
 
 @app.route('/')
 def home():
-    return render_template("index.html", products=products)
+    return render_template("html/index.html", products=products)
 
 @app.route('/contact')
 def contact():
-    return render_template("contact.html")
+    return render_template("html/contact.html")
 
 if __name__ == '__main__':
     # Only for local testing
