@@ -1,9 +1,4 @@
-# web-application-deployment-with-github-actions
-Excellent. Below is a **professional, complete project documentation** you can include in your GitHub repository as `README.md`.
 
-This version covers everything — from Dockerization, ECR/ECS deployment, and Nginx configuration to the CI/CD workflow with GitHub Actions — written in a clean, technical format suitable for production documentation.
-
----
 
 # **Flask ECS Deployment with Nginx and GitHub Actions**
 
