@@ -23,6 +23,7 @@ The setup includes **Nginx** as a reverse proxy for production-grade request han
 * **Hosting:** Amazon Elastic Container Service (ECS) with Fargate
 * **Automation:** GitHub Actions for CI/CD pipeline
 
+![Alt text](diagram.jpg)
 ---
 
 ## **Project Structure**
